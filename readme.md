@@ -76,14 +76,17 @@ www                     WEB部署目录（或者子目录）
 ├─composer.json         项目的composer管理配置文件
 ~~~
 
-## 项目说明(基础项目，集合了后台账号登录创建，操作日志，菜单管理，权限管理等基础功能，在这里整理一下，以免每次重复进行相同的工作)
-```text
-克隆项目
+## 项目说明
+>(基础项目，集合了后台账号登录创建，操作日志，菜单管理，权限管理等基础功能，在这里整理一下，以免每次重复进行相同的工作)
+>克隆项目
+```git
 git clone https://github.com/iszmxw/Basics.git
 cd Basics
 composer install
+```
+>编辑数据库配置信息
+```git
 vim .env
-编辑数据库配置信息
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
@@ -91,9 +94,8 @@ DB_DATABASE=basics_test
 DB_USERNAME=basics_test
 DB_PASSWORD=basics_test
 DB_PREFIX=xw_
-导入数据库文件到数据库（basics_test.sql）
-
 ```
+>最后导入数据库文件到数据库（basics_test.sql）
 
 ## 后台截图
 ![avatar](/public/images/ht01.png)
