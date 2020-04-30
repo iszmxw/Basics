@@ -12,7 +12,7 @@ Purchase: http://wrapbootstrap.com
     <meta name="description" content="@yield('title')"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="shortcut icon" href="{{asset("admin/assets/img/favicon.png")}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{asset("admin_style/assets/img/favicon.png")}}" type="image/x-icon">
     @yield('style')
     @include('admin.common.style')
 </head>

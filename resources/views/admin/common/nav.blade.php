@@ -5,7 +5,7 @@
             <div class="navbar-header pull-left">
                 <a href="{{route('admin.dashboard')}}" class="navbar-brand">
                     <small>
-                        <img src="{{asset('admin/assets/img/logo.png')}}" alt=""/>
+                        <img src="{{asset('admin_style/assets/img/logo.png')}}" alt=""/>
                     </small>
                 </a>
             </div>
@@ -25,72 +25,73 @@
                                 <i class="icon fa fa-envelope"></i>
                                 <span class="badge">3</span>
                             </a>
-                            <!--Messages Dropdown-->
+                            <!--最新反馈消息-->
                             <ul class="pull-right dropdown-menu dropdown-arrow dropdown-messages">
                                 <li>
                                     <a href="#">
-                                        <img src="{{asset('admin/assets/img/avatars/divyia.jpg')}}"
+                                        <img src="{{asset('admin_style/assets/img/avatars/divyia.jpg')}}"
                                              class="message-avatar"
-                                             alt="Divyia Austin">
+                                             alt="合作商名称">
                                         <div class="message">
                                                 <span class="message-sender">
-                                                    Divyia Austin
+                                                    合作商名称
                                                 </span>
                                             <span class="message-time">
-                                                    2 minutes ago
+                                                    2 分钟前
                                                 </span>
                                             <span class="message-subject">
-                                                    Here's the recipe for apple pie
+                                                    合作商反馈标题
                                                 </span>
                                             <span class="message-body">
-                                                    to identify the sending application when the senders image is shown for the main icon
+                                                    合作商反馈内容
                                                 </span>
                                         </div>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <img src="{{asset('admin/assets/img/avatars/bing.png')}}" class="message-avatar"
-                                             alt="Microsoft Bing">
+                                        <img src="{{asset('admin_style/assets/img/avatars/divyia.jpg')}}"
+                                             class="message-avatar"
+                                             alt="合作商名称">
                                         <div class="message">
                                                 <span class="message-sender">
-                                                    Bing.com
+                                                    合作商名称
                                                 </span>
                                             <span class="message-time">
-                                                    Yesterday
+                                                    2 分钟前
                                                 </span>
                                             <span class="message-subject">
-                                                    Bing Newsletter: The January Issue‏
+                                                    合作商反馈标题
                                                 </span>
                                             <span class="message-body">
-                                                    Discover new music just in time for the Grammy® Awards.
+                                                    合作商反馈内容
                                                 </span>
                                         </div>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <img src="{{asset('admin/assets/img/avatars/adam-jansen.jpg')}}"
+                                        <img src="{{asset('admin_style/assets/img/avatars/divyia.jpg')}}"
                                              class="message-avatar"
-                                             alt="Divyia Austin">
+                                             alt="合作商名称">
                                         <div class="message">
                                                 <span class="message-sender">
-                                                    Nicolas
+                                                    合作商名称
                                                 </span>
                                             <span class="message-time">
-                                                    Friday, September 22
+                                                    2 分钟前
                                                 </span>
                                             <span class="message-subject">
-                                                    New 4K Cameras
+                                                    合作商反馈标题
                                                 </span>
                                             <span class="message-body">
-                                                    The 4K revolution has come over the horizon and is reaching the general populous
+                                                    合作商反馈内容
                                                 </span>
                                         </div>
                                     </a>
                                 </li>
                             </ul>
-                            <!--/Messages Dropdown-->
+                            <!--/最新反馈消息-->
                         </li>
                         <li>
                             <a class="login-area dropdown-toggle" data-toggle="dropdown">

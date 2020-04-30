@@ -12,6 +12,8 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        //
+        // 排除_token验证的路由
+        'admin/advert/uploads',
+        'admin/advert/delete_file'
     ];
 }

@@ -20,3 +20,7 @@ Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 Route::get('phpinfo', function () {
     phpinfo();
 });
+
+Route::get('url', function () {
+    dump(config('app.url'));
+});

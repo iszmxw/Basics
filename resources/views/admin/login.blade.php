@@ -14,21 +14,21 @@ Purchase: http://wrapbootstrap.com
     <meta name="description" content="登录后台"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="shortcut icon" href="{{asset("admin/assets/img/favicon.png")}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{asset("admin_style/assets/img/favicon.png")}}" type="image/x-icon">
 
     <!--Basic Styles-->
-    <link href="{{asset("admin/assets/css/bootstrap.min.css")}}" rel="stylesheet"/>
-    <link href="{{asset("admin/assets/css/font-awesome.min.css")}}" rel="stylesheet"/>
+    <link href="{{asset("admin_style/assets/css/bootstrap.min.css")}}" rel="stylesheet"/>
+    <link href="{{asset("admin_style/assets/css/font-awesome.min.css")}}" rel="stylesheet"/>
 
     <!--Beyond styles-->
-    <link href="{{asset("admin/assets/css/beyond.min.css")}}" id="beyond-link" rel="stylesheet"/>
-    <link href="{{asset("admin/assets/css/animate.min.css")}}" rel="stylesheet"/>
+    <link href="{{asset("admin_style/assets/css/beyond.min.css")}}" rel="stylesheet"/>
+    <link href="{{asset("admin_style/assets/css/animate.min.css")}}" rel="stylesheet"/>
 
     <!--Skin Script: Place this script in head to load scripts for skins and rtl support-->
-    <script src="{{asset("admin/assets/js/skins.min.js")}}"></script>
+    <script src="{{asset("admin_style/assets/js/skins.min.js")}}"></script>
     <style type="text/css">
         body {
-            background-image: url({{asset("admin/images/login_background")."/".rand(1,13).".jpg"}});
+            background-image: url({{asset("admin_style/images/login_background")."/".rand(1,13).".jpg"}});
             background-position: center center;
             background-repeat: no-repeat;
             background-size: cover;
@@ -92,12 +92,12 @@ Purchase: http://wrapbootstrap.com
 </div>
 
 <!--Basic Scripts-->
-<script src="{{asset("admin/assets/js/jquery-2.0.3.min.js")}}"></script>
-<script src="{{asset("admin/assets/js/bootstrap.min.js")}}"></script>
+<script src="{{asset("admin_style/assets/js/jquery-2.0.3.min.js")}}"></script>
+<script src="{{asset("admin_style/assets/js/bootstrap.min.js")}}"></script>
 
 <!--Beyond Scripts-->
-<script src="{{asset("admin/assets/js/beyond.js")}}"></script>
-<script src="{{asset("admin/assets/js/toastr/toastr.js")}}"></script>
+<script src="{{asset("admin_style/assets/js/beyond.js")}}"></script>
+<script src="{{asset("admin_style/assets/js/toastr/toastr.js")}}"></script>
 
 <!--Google Analytics::Demo Only-->
 <script>

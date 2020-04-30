@@ -12,18 +12,36 @@ class Admin extends Base
     //主键
     protected $primaryKey = 'id';
 
-    // 获取用户的头像
+    /**
+     * 获取用户的头像
+     * @param $atavar
+     * @return string
+     * @author：iszmxw <mail@54zm.com>
+     * @Date 2019/10/15 0015
+     * @Time：16:32
+     */
     public function getAvatarAttribute($atavar)
     {
         if (empty($atavar)) {
-            return config('app.url') . "/admin/images/avatars/avatar.png";
+            return config('app.url') . "/admin_style/images/avatars/avatar.png";
         } else {
             return config('app.url') . $atavar;
         }
     }
 
 
-    // 获取分页数据
+    /**
+     * 获取分页数据
+     * @param array $where
+     * @param array $field
+     * @param int $paginate
+     * @param string $orderby
+     * @param string $sort
+     * @return bool
+     * @author：iszmxw <mail@54zm.com>
+     * @Date 2019/10/15 0015
+     * @Time：16:32
+     */
     public static function getAccountPaginate($where = [], $field = [], $paginate = 1, $orderby = "id", $sort = "DESC")
     {
         if (empty($field)) {

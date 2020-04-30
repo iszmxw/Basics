@@ -12,7 +12,18 @@ class OperationLog extends Base
     //主键
     protected $primaryKey = 'id';
 
-    //分页获取数据
+    /**
+     * 分页获取数据
+     * @param array $where
+     * @param array $field
+     * @param int $paginate
+     * @param string $orderby
+     * @param string $sort
+     * @return bool
+     * @author：iszmxw <mail@54zm.com>
+     * @Date 2019/10/15 0015
+     * @Time：16:34
+     */
     public static function getPaginate($where = [], $field = ['operation_log.*', 'admin.account', 'admin.avatar', 'role.name as role_name'], $paginate = 10, $orderby = "id", $sort = "DESC")
     {
         if (empty($field)) {
@@ -35,7 +46,7 @@ class OperationLog extends Base
             $res = $model->paginate($paginate['limit'], $paginate['page']);
         } else {
             // 默认分页
-            $res = $model->paginate($paginate);
+            $res = $model->paginate($paginate, ['*'], 'operation_page');
         }
         if (!empty($res)) {
             return $res;

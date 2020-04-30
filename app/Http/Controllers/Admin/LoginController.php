@@ -3,16 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Library\IpAddress;
 use App\Library\Tools;
 use App\Models\Admin;
 use App\Models\LoginLog;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Iszmxw\IpAddress\Address;
 
 class LoginController extends Controller
 {
-    // 登录系统
+    /**
+     * 登录系统
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     * @author: iszmxw <mail@54zm.com>
+     * @Date：2020/4/30 11:23
+     */
     public function login(Request $request)
     {
         $admin_data = session()->get('admin_data');
@@ -23,12 +29,19 @@ class LoginController extends Controller
         }
     }
 
-    // 登录检测
+    /**
+     * 登录检测
+     * @param Request $request
+     * @return array
+     * @author：iszmxw <mail@54zm.com>
+     * @Date 2019/10/15 0015
+     * @Time：16:05
+     */
     public function login_check(Request $request)
     {
-        $ip = $request->ip();
-        $address = IpAddress::address($ip);
-        $account = $request->get('account');
+        $ip       = $request->ip();
+        $address  = Address::address($ip);
+        $account  = $request->get('account');
         $password = $request->get('password');
         if (empty($account)) {
             return ['code' => 500, 'message' => '请输入登录账号'];
@@ -44,19 +57,19 @@ class LoginController extends Controller
             return ['code' => 500, 'message' => '对不起您的账号异常，如有需要，请你联系后台管理人员！'];
         }
         if ($password == decrypt($admin_data['password'])) {
-            $role_name = Role::getValue(['id' => $admin_data['role_id']], 'name');
+            $role_name               = Role::getValue(['id' => $admin_data['role_id']], 'name');
             $admin_data['role_name'] = $role_name;
-            $admin_data['ip'] = $ip;
-            $admin_data['address'] = $address['location'];
-            $system_menu = Tools::system_menu($admin_data);
+            $admin_data['ip']        = $ip;
+            $admin_data['address']   = $address['location'];
+            $system_menu             = Tools::system_menu($admin_data);
             // 记录登录日志
             LoginLog::AddData([
                 'account_id' => $admin_data['id'],
-                'type' => 1,
-                'account' => $admin_data['account'],
-                'role' => $role_name,
-                'ip' => $address['origip'],
-                'address' => $address['location'],
+                'type'       => 1,
+                'account'    => $admin_data['account'],
+                'role'       => $role_name,
+                'ip'         => $ip,
+                'address'    => $address['location'],
             ]);
             session()->put('admin_data', $admin_data);
             session()->put('system_menu', $system_menu);
@@ -66,7 +79,14 @@ class LoginController extends Controller
         }
     }
 
-    //非法操作提示页面
+    /**
+     * 非法操作提示页面
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @author：iszmxw <mail@54zm.com>
+     * @Date 2019/10/15 0015
+     * @Time：16:05
+     */
     public function error_page(Request $request)
     {
         $msg = $request->get('msg');
@@ -77,7 +97,13 @@ class LoginController extends Controller
     }
 
 
-    // 退出系统
+    /**
+     * 退出系统
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @author：iszmxw <mail@54zm.com>
+     * @Date 2019/10/15 0015
+     * @Time：16:05
+     */
     public function quit()
     {
         session()->put('admin_data', '');

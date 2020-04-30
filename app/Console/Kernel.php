@@ -8,34 +8,36 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 class Kernel extends ConsoleKernel
 {
     /**
-     * The Artisan commands provided by your application.
+     * 您的应用程序提供的Artisan命令。
+     *
      *
      * @var array
      */
     protected $commands = [
-        //
+        \App\Console\Commands\AdvertScene::class,
     ];
 
     /**
-     * Define the application's command schedule.
+     * 定义应用程序的命令调度。
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @param \Illuminate\Console\Scheduling\Schedule $schedule
      * @return void
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        // 按照场景计算昨日广告播放情况
+        $schedule->command('advert:scene')
+            ->everyMinute();
     }
 
     /**
-     * Register the commands for the application.
+     * 注册应用程序的命令。
      *
      * @return void
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }

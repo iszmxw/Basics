@@ -2,8 +2,8 @@
 
 namespace App\Http\Middleware\Admin;
 
-use App\Models\Company;
-use App\Models\CompanyDevice;
+use App\Models\Merchant;
+use App\Models\MerchantDevice;
 use App\Models\Role;
 use App\Models\RoleRoute;
 use Closure;
@@ -22,7 +22,7 @@ class Admin
     public function handle($request, Closure $next)
     {
         self::cors();
-        $route = $request->path();
+        $route     = $request->path();
         $arr_route = explode('/', $route);
         switch ($route) {
             case 'admin/login';
@@ -38,10 +38,17 @@ class Admin
     }
 
 
-    // 检测用户是否登录
+    /**
+     * 检测用户是否登录
+     * @param $request
+     * @return array
+     * @author：iszmxw <mail@54zm.com>
+     * @Date 2019/10/15 0015
+     * @Time：16:20
+     */
     public static function LoginCheck($request)
     {
-        $admin_data = session()->get('admin_data');
+        $admin_data  = session()->get('admin_data');
         $system_menu = session()->get('system_menu');
         if (!empty($admin_data) && !empty($system_menu)) {
             $route = $request->path();
@@ -57,7 +64,14 @@ class Admin
     }
 
 
-    // 检测用户的登录和角色权限
+    /**
+     * 检测用户的登录和角色权限
+     * @param $request
+     * @return array
+     * @author：iszmxw <mail@54zm.com>
+     * @Date 2019/10/15 0015
+     * @Time：16:20
+     */
     public static function LoginAndRoleCheck($request)
     {
         $res = self::LoginCheck($request);
@@ -70,19 +84,26 @@ class Admin
     }
 
 
-    // 用户角色权限检测
+    /**
+     * 用户角色权限检测
+     * @param $request
+     * @return array
+     * @author：iszmxw <mail@54zm.com>
+     * @Date 2019/10/15 0015
+     * @Time：16:20
+     */
     public static function RoleCheck($request)
     {
-        $route = $request->path();
+        $route      = $request->path();
         $admin_data = session()->get('admin_data');
         $admin_role = session()->get('admin_role');
         // 查找用户可访问路由
         if (empty($admin_role)) {
             $admin_role = [];
-            $role_id = $admin_data['role_id'];
-            $routes = Role::getValue(['id' => $role_id], 'routes');
-            $routes = explode(',', $routes);
-            $routes = RoleRoute::where('route', '<>', null)->whereIn('id', $routes)->get(['route'])->toArray();
+            $role_id    = $admin_data['role_id'];
+            $routes     = Role::getValue(['id' => $role_id], 'routes');
+            $routes     = explode(',', $routes);
+            $routes     = RoleRoute::where('route', '<>', null)->whereIn('id', $routes)->get(['route'])->toArray();
             foreach ($routes as $key => $val) {
                 $admin_role[] = $val['route'];
             }
@@ -106,7 +127,15 @@ class Admin
         }
     }
 
-    // 返回数据
+    /**
+     * 返回数据
+     * @param $res
+     * @param Closure $next
+     * @return \Illuminate\Http\JsonResponse|mixed
+     * @author：iszmxw <mail@54zm.com>
+     * @Date 2019/10/15 0015
+     * @Time：16:20
+     */
     public static function Response($res, Closure $next)
     {
         if ($res['status'] == 1) {
@@ -120,18 +149,31 @@ class Admin
         }
     }
 
-    // 中间件返回数据专用
+    /**
+     * 中间件返回数据专用
+     * @param $status
+     * @param $response
+     * @return array
+     * @author：iszmxw <mail@54zm.com>
+     * @Date 2019/10/15 0015
+     * @Time：16:20
+     */
     public static function ReArray($status, $response)
     {
         $arr = [
-            'status' => $status,
+            'status'   => $status,
             'response' => $response
         ];
         return $arr;
     }
 
 
-    //解决跨域问题
+    /**
+     * 解决跨域问题
+     * @author：iszmxw <mail@54zm.com>
+     * @Date 2019/10/15 0015
+     * @Time：16:20
+     */
     public static function cors()
     {
         // 允许来自任何来源

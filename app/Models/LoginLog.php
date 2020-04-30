@@ -12,4 +12,13 @@ class LoginLog extends Base
     //主键
     protected $primaryKey = 'id';
 
+    protected $appends = ['open_created_at'];
+
+
+    public function getOpenCreatedAtAttribute()
+    {
+        $data = $this->attributes['created_at'];
+        return date('Y-m-d H:i:s', $data);
+    }
+
 }

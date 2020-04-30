@@ -102,7 +102,7 @@
 {{--引入其他js脚本--}}
 @section('script')
     <!--Page Related Scripts-->
-    <script src="{{asset('admin/assets/js/bootbox/bootbox.js')}}"></script>
+    <script src="{{asset('admin_style/assets/js/bootbox/bootbox.js')}}"></script>
     <script>
         // 获取模态框
         function GetModal(name, id) {

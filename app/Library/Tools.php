@@ -6,11 +6,19 @@ namespace App\Library;
 
 use App\Models\Role;
 use App\Models\RoleRoute;
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
 
 class Tools
 {
-    // 通过用户信息获取相应的菜单节点
+    /**
+     * 通过用户信息获取相应的菜单节点
+     * @param $admin_data
+     * @return bool
+     * @author：iszmxw <mail@54zm.com>
+     * @Date 2019/10/15 0015
+     * @Time：16:30
+     */
     public static function system_menu($admin_data)
     {
         // 如果是超级管理员或者权限角色ID为1的用户，放开所有菜单
@@ -21,8 +29,8 @@ class Tools
             }
             return $system_menu;
         } else {
-            $routes = Role::getValue(['id' => $admin_data['role_id']], 'routes');
-            $routes = explode(',', $routes);
+            $routes      = Role::getValue(['id' => $admin_data['role_id']], 'routes');
+            $routes      = explode(',', $routes);
             $system_menu = RoleRoute::whereIn('id', $routes)->where(['is_menu' => 1, 'depth' => 1, 'parent_id' => 0])->orderBy('order', 'ASC')->get()->toArray();
             foreach ($system_menu as $key => $val) {
                 $system_menu[$key]['menu_sub'] = RoleRoute::whereIn('id', $routes)->where(['is_menu' => 1, 'depth' => 2, 'parent_id' => $val['id']])->orderBy('order', 'ASC')->get()->toArray();
@@ -32,7 +40,16 @@ class Tools
     }
 
 
-    // 处理菜单class样式
+    /**
+     * 处理菜单class样式
+     * @param $data
+     * @param $url
+     * @param bool $sub
+     * @return string
+     * @author：iszmxw <mail@54zm.com>
+     * @Date 2019/10/15 0015
+     * @Time：16:30
+     */
     public function li_class($data, $url, $sub = false)
     {
         $class = '';
@@ -58,7 +75,14 @@ class Tools
     }
 
 
-    // 处理菜单深度
+    /**
+     * 处理菜单深度
+     * @param $parent_id
+     * @return int
+     * @author：iszmxw <mail@54zm.com>
+     * @Date 2019/10/15 0015
+     * @Time：16:30
+     */
     public static function depth($parent_id)
     {
         if ($parent_id == 0) {
@@ -74,7 +98,13 @@ class Tools
         return $depth;
     }
 
-    //判断是否是移动端访问
+    /**
+     * 判断是否是移动端访问
+     * @return bool
+     * @author：iszmxw <mail@54zm.com>
+     * @Date 2019/10/15 0015
+     * @Time：16:31
+     */
     public static function isMobile()
     {
         // 如果有HTTP_X_WAP_PROFILE则一定是移动设备
@@ -134,5 +164,26 @@ class Tools
             }
         }
         return FALSE;
+    }
+
+
+    /**
+     * 获取阿里云对象存储图片的详细信息
+     * @param $file_path
+     * @return bool|mixed
+     * @author：iszmxw <mail@54zm.com>
+     * @Date 2019/10/15 0015
+     * @Time：16:31
+     */
+    public static function getFileInfo($file_path)
+    {
+        $client = new Client();
+        $url    = config('iszmxw.OSS_CNAME') . $file_path . "?x-oss-process=image/info";
+        $res    = $client->get($url)->getBody()->getContents();
+        if ($res) {
+            return json_decode($res, true);
+        } else {
+            return false;
+        }
     }
 }

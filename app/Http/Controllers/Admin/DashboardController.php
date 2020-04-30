@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Library\Logs;
 use App\Models\Admin;
+use App\Models\Advert;
 use App\Models\LoginLog;
+use App\Models\Merchant;
 use App\Models\OperationLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,11 +19,16 @@ class DashboardController extends Controller
      * 系统首页
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @author：iszmxw <mail@54zm.com>
+     * @Date 2019/10/15 0015
+     * @Time：16:04
      */
     public function dashboard(Request $request)
     {
-        $data['login_log'] = LoginLog::getPaginate([], [], 10, 'id');
+        $data['login_log']     = LoginLog::select('*')->where([])->orderBy('id', 'DESC')->paginate(10, ['*'], 'login_page');
         $data['operation_log'] = OperationLog::getPaginate();
+        $data['merchant_num']  = Merchant::getCount();
+        $data['advert_num']    = Advert::getCount();
         return view('admin.dashboard', $data);
     }
 
@@ -29,10 +36,13 @@ class DashboardController extends Controller
      * 个人中心
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @author：iszmxw <mail@54zm.com>
+     * @Date 2019/10/15 0015
+     * @Time：16:04
      */
     public function profile(Request $request)
     {
-        $admin_data = $request->get('admin_data');
+        $admin_data         = $request->get('admin_data');
         $data['admin_data'] = $admin_data;
         return view('admin.system.profile', $data);
     }
@@ -42,13 +52,16 @@ class DashboardController extends Controller
      * @param Request $request
      * @return array
      * @throws \Exception
+     * @author：iszmxw <mail@54zm.com>
+     * @Date 2019/10/15 0015
+     * @Time：16:05
      */
     public function profile_edit(Request $request)
     {
-        $admin_data = $request->get('admin_data');
+        $admin_data   = $request->get('admin_data');
         $old_password = $request->get('old_password');
         $new_password = $request->get('new_password');
-        $re_password = $request->get('re_password');
+        $re_password  = $request->get('re_password');
 
         if (empty($new_password)) {
             return ['code' => 500, 'message' => '新密码不能为空！'];

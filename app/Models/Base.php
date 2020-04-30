@@ -14,13 +14,31 @@ class Base extends Model
     // 过滤黑名单字段
     public $guarded = [];
 
-    // 获取单字段数据
+    /**
+     * 获取某个值
+     * @param $where
+     * @param $value
+     * @return mixed
+     * User：iszmxw <mail@54zm.com>
+     * Date 2019/10/11 0011
+     * Time：17:45
+     */
     public static function getValue($where, $value)
     {
         return self::where($where)->orderBy('id', 'DESC')->value($value);
     }
 
-    // 获取单组数据
+    /**
+     * 获取单组数据
+     * @param array $where
+     * @param array $field
+     * @param string $orderby
+     * @param string $sort
+     * @return bool
+     * User：iszmxw <mail@54zm.com>
+     * Date 2019/10/11 0011
+     * Time：17:45
+     */
     public static function getOne($where = [], $field = [], $orderby = "id", $sort = 'DESC')
     {
         // 默认获取全部字段
@@ -35,7 +53,19 @@ class Base extends Model
         }
     }
 
-    //获取列表数据
+    /**
+     * 获取列表数据
+     * @param array $where
+     * @param array $field
+     * @param int $offset
+     * @param int $limit
+     * @param string $orderby
+     * @param string $sort
+     * @return bool
+     * User：iszmxw <mail@54zm.com>
+     * Date 2019/10/11 0011
+     * Time：17:46
+     */
     public static function getList($where = [], $field = [], $offset = 0, $limit = 0, $orderby = "id", $sort = 'DESC')
     {
         if (empty($field)) {
@@ -64,8 +94,19 @@ class Base extends Model
     }
 
 
-    //分页获取数据
-    public static function getPaginate($where = [], $field = [], $paginate = 1, $orderby = "", $sort = "DESC")
+    /**
+     * 分页获取数据
+     * @param array $where
+     * @param array $field
+     * @param int $limit
+     * @param string $orderby
+     * @param string $sort
+     * @return bool
+     * User：iszmxw <mail@54zm.com>
+     * Date 2019/10/11 0011
+     * Time：17:46
+     */
+    public static function getPaginate($where = [], $field = [], $limit = 10, $orderby = "id", $sort = "DESC")
     {
         if (empty($field)) {
             $field = '*';
@@ -77,12 +118,12 @@ class Base extends Model
         if (!empty($orderby)) {
             $model = $model->orderBy($orderby, $sort);
         }
-        if (is_array($paginate)) {
+        if (is_array($limit)) {
             // 自定义分页
-            $res = $model->paginate($paginate['limit'], $paginate['page']);
+            $res = $model->paginate($limit['limit'], $limit['page']);
         } else {
             // 默认分页
-            $res = $model->paginate($paginate);
+            $res = $model->paginate($limit);
         }
         if (!empty($res)) {
             return $res;
@@ -91,7 +132,15 @@ class Base extends Model
         }
     }
 
-    // 添加数据
+    /**
+     * 添加数据
+     * @param array $data
+     * @param array $where
+     * @return bool
+     * User：iszmxw <mail@54zm.com>
+     * Date 2019/10/11 0011
+     * Time：17:46
+     */
     public static function AddData($data = [], $where = [])
     {
         if (!empty($where)) {
@@ -110,7 +159,15 @@ class Base extends Model
         }
     }
 
-    // 编辑数据
+    /**
+     * 编辑数据
+     * @param array $where
+     * @param array $data
+     * @return bool
+     * User：iszmxw <mail@54zm.com>
+     * Date 2019/10/11 0011
+     * Time：17:47
+     */
     public static function EditData($where = [], $data = [])
     {
         $res = self::where($where)->update($data);
@@ -122,7 +179,14 @@ class Base extends Model
         }
     }
 
-    //删除数据
+    /**
+     * 删除数据
+     * @param $where
+     * @return bool
+     * User：iszmxw <mail@54zm.com>
+     * Date 2019/10/11 0011
+     * Time：17:47
+     */
     public static function selected_delete($where)
     {
         $res = self::where($where)->delete();
@@ -133,7 +197,15 @@ class Base extends Model
         }
     }
 
-    // 获取单列数据
+    /**
+     * 获取单列数据
+     * @param array $where
+     * @param string $field
+     * @return bool
+     * User：iszmxw <mail@54zm.com>
+     * Date 2019/10/11 0011
+     * Time：17:47
+     */
     public static function getPluck($where = [], $field = "id")
     {
         $res = self::where($where)->pluck($field);
@@ -144,7 +216,15 @@ class Base extends Model
         }
     }
 
-    // 查询该数据是否存在
+    /**
+     * 查询该数据是否存在
+     * @param array $where
+     * @param string $field
+     * @return bool
+     * User：iszmxw <mail@54zm.com>
+     * Date 2019/10/11 0011
+     * Time：17:47
+     */
     public static function checkRowExists($where = [], $field = "id")
     {
         // 添加withTrashed（软删除查询）包含已经软删除的数据
@@ -156,34 +236,73 @@ class Base extends Model
         }
     }
 
-    // 求总数
+    /**
+     * 求总数
+     * @param array $where
+     * @return mixed
+     * User：iszmxw <mail@54zm.com>
+     * Date 2019/10/11 0011
+     * Time：17:47
+     */
     public static function getCount($where = [])
     {
         return self::where($where)->count();
     }
 
-    // 求和
+    /**
+     * 求和
+     * @param array $where
+     * @param string $field
+     * @return mixed
+     * User：iszmxw <mail@54zm.com>
+     * Date 2019/10/11 0011
+     * Time：17:48
+     */
     public static function getSum($where = [], $field = "id")
     {
         $res = self::where($where)->sum($field);
         return $res;
     }
 
-    // 求最大值
+    /**
+     * 求最大值
+     * @param array $where
+     * @param string $field
+     * @return mixed
+     * User：iszmxw <mail@54zm.com>
+     * Date 2019/10/11 0011
+     * Time：17:48
+     */
     public static function getMax($where = [], $field = "id")
     {
         $res = self::where($where)->max($field);
         return $res;
     }
 
-    // 求最小值
+    /**
+     * 求最小值
+     * @param array $where
+     * @param string $field
+     * @return mixed
+     * User：iszmxw <mail@54zm.com>
+     * Date 2019/10/11 0011
+     * Time：17:48
+     */
     public static function getMin($where = [], $field = "id")
     {
         $res = self::where($where)->min($field);
         return $res;
     }
 
-    // 求平均值
+    /**
+     * 求平均值
+     * @param array $where
+     * @param string $field
+     * @return mixed
+     * User：iszmxw <mail@54zm.com>
+     * Date 2019/10/11 0011
+     * Time：17:48
+     */
     public static function getAvg($where = [], $field = "id")
     {
         $res = self::where($where)->avg($field);

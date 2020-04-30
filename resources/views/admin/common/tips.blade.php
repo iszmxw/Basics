@@ -6,8 +6,12 @@
     <meta name="description" content="@yield('title')"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="shortcut icon" href="{{asset("admin/assets/img/favicon.png")}}" type="image/x-icon">
-    @include('admin.common.style')
+    <link rel="shortcut icon" href="{{asset("admin_style/assets/img/favicon.png")}}" type="image/x-icon">
+    <style>
+        .swal-footer {
+            text-align: center;
+        }
+    </style>
 </head>
 <!-- /头部 -->
 <!-- Body部分 -->
@@ -33,40 +37,20 @@
         <div class="rotator"></div>
     </div>
 </div>
-<div class="main-container container-fluid">
-    <div class="page-container">
-        <div class="page-content">
-            {{--提示框--}}
-            <div class="modal fade in" aria-hidden="false" style="display: block;">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            <h4 class="modal-title" id="title">{{$msg}}</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="title">
-                                {{$msg}}
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-blue"
-                                    onclick="goBack()">确认返回
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {{--提示框--}}
-        </div>
-    </div>
-</div>
-@include('admin.common.script')
+<script src="{{asset("admin_style/assets/library/sweetalert/sweetalert.min.js")}}"></script>
+{{--error--}}
 <script>
-    // 返回上一级页面
-    function goBack() {
-        window.location.href = '{{ url()->previous() }}';
-    }
+    swal({
+        title: "提示信息",
+        text: "{{$msg}}",
+        icon: "warning",
+        buttons: [false, "确认返回"],
+        closeOnClickOutside: false,
+    }).then((res) => {
+        if (res) {
+            window.location.href = "{{ url()->previous() }}"
+        }
+    });
 </script>
 </body>
 </html>

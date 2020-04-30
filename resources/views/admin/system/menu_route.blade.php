@@ -340,7 +340,7 @@
 {{--引入其他js脚本--}}
 @section('script')
     <!--Page Related Scripts-->
-    <script src="{{asset('admin/assets/js/bootbox/bootbox.js')}}"></script>
+    <script src="{{asset('admin_style/assets/js/bootbox/bootbox.js')}}"></script>
     <script>
         // 展示添加路由模态框
         function showAddRouteModal() {

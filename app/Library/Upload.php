@@ -11,6 +11,9 @@ class Upload
      * @param $upload_path
      * @param $file_name
      * @return array
+     * @author：iszmxw <mail@54zm.com>
+     * @Date 2019/10/15 0015
+     * @Time：16:30
      */
     public static function images($request, $field, $upload_path, $file_name)
     {
@@ -30,7 +33,7 @@ class Upload
             //重命名文件,文件名加上后缀
             $NewFileName = $file_name . '.' . $ext;
             // 上传文件并判断
-            $path = $file->move(public_path() . '/' . $upload_path, $NewFileName);
+            $path    = $file->move(public_path() . '/' . $upload_path, $NewFileName);
             $img_url = '/' . $upload_path . $NewFileName;
             if ($path->isFile()) {
                 return ['code' => 20000, 'path' => $img_url, 'complete_path' => asset($img_url), 'message' => 'ok'];
@@ -47,6 +50,9 @@ class Upload
      * @param string $save_dir 需要保存的地址
      * @param string $filename 保存文件名
      * @return array
+     * @author：iszmxw <mail@54zm.com>
+     * @Date 2019/10/15 0015
+     * @Time：16:30
      */
     public static function download($url, $save_dir = './public/upload/iszmxw/', $filename = '')
     {

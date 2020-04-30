@@ -9,8 +9,16 @@
             min-height: 50px !important;
             word-wrap: break-word;
         }
-        .tickets-container .tickets-list .ticket-item .ticket-type .type{
+
+        .tickets-container .tickets-list .ticket-item .ticket-type .type {
             text-transform: unset !important;
+        }
+
+        .databox .databox-piechart span {
+            display: inline-block;
+            width: 45px;
+            line-height: 45px;
+            font-size: 28px;
         }
     </style>
 @endsection
@@ -53,15 +61,11 @@
                         <div class="databox radius-bordered databox-shadowed databox-graded">
                             <div class="databox-left bg-themeprimary">
                                 <div class="databox-piechart">
-                                    <div id="users-pie" data-toggle="easypiechart" class="easyPieChart"
-                                         data-barcolor="#fff" data-linecap="butt" data-percent="76"
-                                         data-animate="500" data-linewidth="3" data-size="47"
-                                         data-trackcolor="rgba(255,255,255,0.1)"><span
-                                                class="white font-90">76%</span></div>
+                                    <span class="fa fa-users"></span>
                                 </div>
                             </div>
                             <div class="databox-right">
-                                <span class="databox-number themeprimary">98</span>
+                                <span class="databox-number themeprimary">{{ $merchant_num }}</span>
                                 <div class="databox-text darkgray">合作商户</div>
                                 <div class="databox-state bg-themeprimary">
                                     <i class="fa fa-check"></i>
@@ -74,15 +78,11 @@
                         <div class="databox radius-bordered databox-shadowed databox-graded">
                             <div class="databox-left bg-themesecondary">
                                 <div class="databox-piechart">
-                                    <div data-toggle="easypiechart" class="easyPieChart" data-barcolor="#fff"
-                                         data-linecap="butt" data-percent="50" data-animate="500"
-                                         data-linewidth="3" data-size="47"
-                                         data-trackcolor="rgba(255,255,255,0.1)"><span
-                                                class="white font-90">50%</span></div>
+                                    <span class="fa fa-question-circle"></span>
                                 </div>
                             </div>
                             <div class="databox-right">
-                                <span class="databox-number themesecondary">14</span>
+                                <span class="databox-number themesecondary">0</span>
                                 <div class="databox-text darkgray">问题反馈</div>
                                 <div class="databox-stat themesecondary radius-bordered">
                                     <i class="stat-icon icon-lg fa fa-tasks"></i>
@@ -95,15 +95,11 @@
                         <div class="databox radius-bordered databox-shadowed databox-graded">
                             <div class="databox-left bg-themefourthcolor">
                                 <div class="databox-piechart">
-                                    <div data-toggle="easypiechart" class="easyPieChart" data-barcolor="#fff"
-                                         data-linecap="butt" data-percent="15" data-animate="500"
-                                         data-linewidth="3" data-size="47"
-                                         data-trackcolor="rgba(255,255,255,0.2)"><span
-                                                class="white font-90">15%</span></div>
+                                    <span class="fa fa-road"></span>
                                 </div>
                             </div>
                             <div class="databox-right">
-                                <span class="databox-number themefourthcolor">1</span>
+                                <span class="databox-number themefourthcolor">{{ $advert_num }}</span>
                                 <div class="databox-text darkgray">广告数量</div>
                                 <div class="databox-stat themefourthcolor radius-bordered">
                                     <i class="stat-icon  icon-lg fa fa-adn"></i>
@@ -173,7 +169,7 @@
 
                     <div class="footer">
                         <div class="pull-right">
-                            {{ $login_log->links() }}
+                            {{ $login_log->appends(array_except(Request::query(), 'login_page'))->links() }}
                         </div>
                     </div>
                 </div>
@@ -220,7 +216,7 @@
                                 </ul>
                                 <br>
                                 <div class="pull-right">
-                                    {{$operation_log->links()}}
+                                    {{$operation_log->appends(array_except(Request::query(), 'operation_page'))->links()}}
                                 </div>
                             </div>
                         </div>

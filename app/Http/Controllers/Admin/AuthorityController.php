@@ -16,6 +16,9 @@ class AuthorityController extends Controller
      * 角色列表
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @author：iszmxw <mail@54zm.com>
+     * @Date 2019/10/15 0015
+     * @Time：16:03
      */
     public function role_list(Request $request)
     {
@@ -28,25 +31,28 @@ class AuthorityController extends Controller
      * 树形结构数据
      * @param Request $request
      * @return array
+     * @author：iszmxw <mail@54zm.com>
+     * @Date 2019/10/15 0015
+     * @Time：16:03
      */
     public function tree_data(Request $request)
     {
-        $id = $request->get('role_id');
-        $routes = Role::getValue(['id' => $id], 'routes');
-        $routes = explode(',', $routes);
+        $id         = $request->get('role_id');
+        $routes     = Role::getValue(['id' => $id], 'routes');
+        $routes     = explode(',', $routes);
         $route_data = RoleRoute::getList([], ['id', 'name as text', 'parent_id as parent', 'depth'], 0, 0, 'id', 'ASC');
         if (empty($id)) {
             //只获取路由权限不设置选中状态
             foreach ($route_data as $key => $val) {
                 if ($val['parent'] == 0) $route_data[$key]['parent'] = '#';
-                $route_data[$key]['state']['opened'] = false;
+                $route_data[$key]['state']['opened']   = false;
                 $route_data[$key]['state']['selected'] = false;
             }
         } else {
             // 获取路由并且设置选中状态，在返回
             foreach ($route_data as $key => $val) {
                 if ($val['parent'] == 0) $route_data[$key]['parent'] = '#';
-                $route_data[$key]['state']['opened'] = false;
+                $route_data[$key]['state']['opened']   = false;
                 $route_data[$key]['state']['selected'] = false;
                 // 检测路由是否为选中状态，由此设置选中状态
                 if (in_array($val['id'], $routes)) {
@@ -79,6 +85,9 @@ class AuthorityController extends Controller
      * 获取添加角色模态框
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @author：iszmxw <mail@54zm.com>
+     * @Date 2019/10/15 0015
+     * @Time：16:03
      */
     public function role_modal_add(Request $request)
     {
@@ -89,6 +98,9 @@ class AuthorityController extends Controller
      * 获取角色编辑模态框
      * @param Request $request
      * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @author：iszmxw <mail@54zm.com>
+     * @Date 2019/10/15 0015
+     * @Time：16:04
      */
     public function role_modal_edit(Request $request)
     {
@@ -104,13 +116,16 @@ class AuthorityController extends Controller
      * @param Request $request
      * @return array
      * @throws \Exception
+     * @author：iszmxw <mail@54zm.com>
+     * @Date 2019/10/15 0015
+     * @Time：16:04
      */
     public function role_add(Request $request)
     {
         $admin_data = $request->get('admin_data');
-        $name = $request->get('name');
-        $desc = $request->get('desc');
-        $routes = $request->get('routes');
+        $name       = $request->get('name');
+        $desc       = $request->get('desc');
+        $routes     = $request->get('routes');
         if (empty($name)) return ['code' => 500, 'message' => '请填写角色名称'];
         if (empty($desc)) return ['code' => 500, 'message' => '请填写角色描述'];
         if (count($routes) == 0) return ['code' => 500, 'message' => '请选择权限节点！'];
@@ -118,8 +133,8 @@ class AuthorityController extends Controller
         DB::beginTransaction();
         try {
             $res = Role::AddData([
-                'name' => $name,
-                'desc' => $desc,
+                'name'   => $name,
+                'desc'   => $desc,
                 'routes' => $routes,
             ]);
             Logs::Operation(1, $admin_data['id'], "创建了一个角色，角色的信息如下" . json_encode($res));
@@ -138,11 +153,14 @@ class AuthorityController extends Controller
      * @param Request $request
      * @return array
      * @throws \Exception
+     * @author：iszmxw <mail@54zm.com>
+     * @Date 2019/10/15 0015
+     * @Time：16:04
      */
     public function role_delete(Request $request)
     {
         $admin_data = $request->get('admin_data');
-        $id = $request->get('id');
+        $id         = $request->get('id');
         DB::beginTransaction();
         try {
             $res = Role::selected_delete(['id' => $id]);
@@ -166,14 +184,17 @@ class AuthorityController extends Controller
      * @param Request $request
      * @return array
      * @throws \Exception
+     * @author：iszmxw <mail@54zm.com>
+     * @Date 2019/10/15 0015
+     * @Time：16:04
      */
     public function role_edit(Request $request)
     {
         $admin_data = $request->get('admin_data');
-        $role_id = $request->get('role_id');
-        $name = $request->get('name');
-        $desc = $request->get('desc');
-        $routes = $request->get('routes');
+        $role_id    = $request->get('role_id');
+        $name       = $request->get('name');
+        $desc       = $request->get('desc');
+        $routes     = $request->get('routes');
         if (empty($name)) return ['code' => 500, 'message' => '请填写角色名称'];
         if (empty($desc)) return ['code' => 500, 'message' => '请填写角色描述'];
         if (count($routes) == 0) return ['code' => 500, 'message' => '请选择权限节点！'];
@@ -181,8 +202,8 @@ class AuthorityController extends Controller
         DB::beginTransaction();
         try {
             $res = Role::EditData(['id' => $role_id], [
-                'name' => $name,
-                'desc' => $desc,
+                'name'   => $name,
+                'desc'   => $desc,
                 'routes' => $routes,
             ]);
             Logs::Operation(1, $admin_data['id'], "编辑了一个角色，角色的信息如下" . json_encode($res));

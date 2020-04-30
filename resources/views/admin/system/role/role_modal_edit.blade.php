@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="{{asset('admin/assets/library/jstree/themes/default/style.min.css')}}"/>
+<link rel="stylesheet" href="{{asset('admin_style/assets/library/jstree/themes/default/style.min.css')}}"/>
 <style>
     #RoleFrom {
         margin-top: 10px;
@@ -62,7 +62,7 @@
     </div>
 </div>
 <!--Page Related Scripts-->
-<script src="{{asset('admin/assets/library/jstree/jstree.min.js?v=').time()}}"></script>
+<script src="{{asset('admin_style/assets/library/jstree/jstree.min.js?v=').time()}}"></script>
 <script>
     $(function () {
         let Document = $('#RouteTree');
