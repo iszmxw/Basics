@@ -22,7 +22,8 @@
         "iidestiny/laravel-filesystem-oss": "^1.2",
         "predis/predis": "^1.1",
         "rap2hpoutre/laravel-log-viewer": "^1.1",
-        "barryvdh/laravel-ide-helper": "^2.6"
+        "barryvdh/laravel-ide-helper": "^2.6",
+        "iszmxw/ip-address": "dev-master"
     }
 ```
 
@@ -32,6 +33,7 @@
 - 【Redis封装包】[predis/predis](https://packagist.org/packages/predis/predis).
 - 【laravel日志辅助包，利于日志查看】[rap2hpoutre/laravel-log-viewer](https://packagist.org/packages/rap2hpoutre/laravel-log-viewer).
 - 【laravel框架辅助ide】[barryvdh/laravel-ide-helper](https://packagist.org/packages/barryvdh/laravel-ide-helper).
+- 【IP地址转换】[iszmxw/ip-address](https://packagist.org/packages/iszmxw/ip-address).
 
 ## 目录结构
 
@@ -73,6 +75,34 @@ www                     WEB部署目录（或者子目录）
 ├─artisan               artisan
 ├─composer.json         项目的composer管理配置文件
 ~~~
+
+## 项目说明
+```text
+克隆项目
+git clone https://github.com/iszmxw/Basics.git
+cd Basics
+composer install
+vim .env
+编辑数据库配置信息
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=basics_test
+DB_USERNAME=basics_test
+DB_PASSWORD=basics_test
+DB_PREFIX=xw_
+导入数据库文件到数据库（basics_test.sql）
+
+```
+
+## 后台截图
+![avatar](/public/images/ht01.png)
+![avatar](/public/images/ht02.png)
+![avatar](/public/images/ht03.png)
+![avatar](/public/images/ht04.png)
+![avatar](/public/images/ht05.png)
+![avatar](/public/images/ht06.png)
+![avatar](/public/images/ht08.png)
 
 ## Author微信
 ![avatar](/public/images/my.png)
